@@ -1,0 +1,5 @@
+{{#is_alert}}Alert! my_metric is over 800: value {{value}} with host_ip: {{host.ip}}{{/is_alert}} 
+{{#is_warning}}Warning! my_metric is over 500: value {{value}}{{/is_warning}} 
+{{#is_no_data}}No data received{{/is_no_data}} 
+{{#is_recovery}}my_metrics is OK{{/is_recovery}} 
+@efraingamboab@gmail.com

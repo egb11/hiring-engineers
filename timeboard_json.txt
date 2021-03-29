@@ -1,0 +1,106 @@
+{
+  "title": "Visualizing Data",
+  "description": "## Visualizing Data\n\nIncludes: Custom metric over host, Metric on the DB, Custom metric with rollup function \n",
+  "widgets": [
+    {
+      "id": 5475934452065269,
+      "definition": {
+        "title": "Custom metric scoped over host",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "max:my_metric{*}",
+            "on_right_yaxis": false,
+            "style": {
+              "palette": "purple",
+              "line_type": "solid",
+              "line_width": "thin"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "label": "",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 4104256668388271,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "anomalies(avg:mysql.performance.cpu_time{*}, 'basic', 2)",
+            "on_right_yaxis": false,
+            "style": {
+              "palette": "purple",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "label": "",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 3490688944597034,
+      "definition": {
+        "title": "Custom Metric with Rollup Function",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "max:my_metric{*}.rollup(sum, 3600)",
+            "aggregator": "sum"
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "id": "66f-vy9-aqx"
+}

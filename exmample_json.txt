@@ -1,0 +1,37 @@
+{
+  "description": "string",
+  "is_read_only": false,
+  "layout_type": "string",
+  "notify_list": [],
+  "template_variable_presets": [
+    {
+      "name": "string",
+      "template_variables": [
+        {
+          "name": "string",
+          "value": "string"
+        }
+      ]
+    }
+  ],
+  "template_variables": [
+    {
+      "default": "my-host",
+      "name": "host1",
+      "prefix": "host"
+    }
+  ],
+  "title": "",
+  "widgets": [
+    {
+      "definition": "[object Object]",
+      "id": "integer",
+      "layout": {
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      }
+    }
+  ]
+}
