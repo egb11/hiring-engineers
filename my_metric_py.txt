@@ -1,0 +1,22 @@
+import random
+
+from datadog_checks.base import AgentCheck
+
+__version__ = "1.0.0"
+
+class MyClass(AgentCheck):
+    def check(self, instance):
+
+       # Calling the functions below twice simulates
+        # several metrics submissions during one Agent run.
+        self.gauge(
+            "my_metric",
+            random.randint(450, 1000),
+            tags=["env:dev","metric_submission_type:gauge"],
+        )
+        self.gauge(
+            "my_metric",
+            random.randint(450, 1000),
+            tags=["env:dev","metric_submission_type:gauge"],
+        )
+
