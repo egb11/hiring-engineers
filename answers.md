@@ -1,6 +1,6 @@
-Prerequisites - Setup the environment
+# Prerequisites - Setup the environment
 
-Create an instance in AWS 
+## Create an instance in AWS 
 
 I deployed an t2.micro EC2 instance with os: Ubuntu 20.04 (focal) 
 in the London region, created a new key pair for this instance to be able to SSH into it. 
@@ -10,7 +10,7 @@ And enabled the auto-assign for public IP.
  <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112824238-96833580-908a-11eb-9aad-5855b2211d97.png">
 
 
-Installing the agent 
+## Installing the agent 
 
 To installed the agent I accessed the EC2 instance via SSH. And followed the datadog agent installation guide from the web interface. Which is executing the following command in the console 
 
@@ -37,9 +37,9 @@ Vagrant machine with tags added in the Agent’s config file
 EC2 instance with tags added directly in the UI
 
 
-Collecting Metrics
+# Collecting Metrics
 
-Add tags in the Agent config file and show us a screenshot of your host and its tags on the Host Map page in Datadog.
+## Add tags in the Agent config file and show us a screenshot of your host and its tags on the Host Map page in Datadog.
 
 From the datadog documentation: There are a few different ways to add tags to your instances. 
 
@@ -62,7 +62,7 @@ sudo datadog-agent status
 <img width="270" alt="image" src="https://user-images.githubusercontent.com/18196749/112824426-ccc0b500-908a-11eb-9c32-a5afd89a2180.png">
 
 
-Install a database on your machine (MongoDB, MySQL, or PostgreSQL) and then install the respective Datadog integration for that database.
+## Install a database on your machine (MongoDB, MySQL, or PostgreSQL) and then install the respective Datadog integration for that database.
 
 I decided to install mysql for ubuntu: 
 
@@ -83,7 +83,7 @@ In the console then navigated to “Dashboards” and looked for the “MySQL �
 
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112824477-dcd89480-908a-11eb-8606-72c434a3c944.png">
 
-Create a custom Agent check that submits a metric named my_metric with a random value between 0 and 1000.
+## Create a custom Agent check that submits a metric named my_metric with a random value between 0 and 1000.
 
 In order to create a custom metric there are also a few available methods to send metrics to Datadog: 
 -Custom Agent Check 
@@ -108,7 +108,7 @@ In my_metric.d/ folder, modify the configuration file named my_metric.yaml with 
 <img width="270" alt="image" src="https://user-images.githubusercontent.com/18196749/112824567-f974cc80-908a-11eb-9c4f-41f782e7f74d.png">
 
 
-Bonus Question: Can you change the collection interval without modifying the Python check file you created?
+## Bonus Question: Can you change the collection interval without modifying the Python check file you created?
 
 Yes. It is possible to change the collection interval in two possible ways. The first one being modifying the python check file, as done in the previous step. 
 
@@ -121,14 +121,14 @@ Procedure:
 
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112824601-0691bb80-908b-11eb-8d63-d8354910bf95.png">
 
-Visualizing Data
+# Visualizing Data
 
 Utilize the Datadog API to create a Timeboard that contains:
 •	Your custom metric scoped over your host.
 •	Any metric from the Integration on your Database with the anomaly function applied.
 •	Your custom metric with the rollup function applied to sum up all the points for the past hour into one bucket
 
-Initial setup
+## Initial setup
 Documentation about the API
 https://docs.datadoghq.com/api/latest/ 
 
@@ -185,7 +185,7 @@ And as guide there is the following Example JSON:
 
 This is an example of how the body of the request should look like.  Not being familiar with the tool I was not sure of the possibilities or what to put in the JSON in order to reflect what is being request. So I went to the datadog UI and used to look at creating the dashboard to export the JSON. Which I then added to the body of the request, and successfully created via API.
 
-•	Your custom metric scoped over your host.
+## •	Your custom metric scoped over your host.
 {
     "viz": "timeseries",
     "requests": [
@@ -210,7 +210,7 @@ This is an example of how the body of the request should look like.  Not being f
     "markers": []
 }
 
-•	Any metric from the Integration on your Database with the anomaly function applied
+## •	Any metric from the Integration on your Database with the anomaly function applied
 
 Metric: mysql.performance.cpu_time 
 
@@ -238,7 +238,7 @@ Metric: mysql.performance.cpu_time
     "markers": []
 }
 
-•	Your custom metric with the rollup function applied to sum up all the points for the past hour into one bucket
+## •	Your custom metric with the rollup function applied to sum up all the points for the past hour into one bucket
 
 {
     "viz": "query_value",
@@ -268,7 +268,7 @@ Metric: mysql.performance.cpu_time
  
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112824654-1c06e580-908b-11eb-8334-2df69a0ad3e0.png">
 
-The entire JSON
+### The entire JSON
 
 {
   "title": "Visualizing Data",
@@ -284,7 +284,7 @@ The entire JSON
 }
 
 
-Create new timeboard API Call
+## Create new timeboard API Call
 
 <img width="377" alt="image" src="https://user-images.githubusercontent.com/18196749/112824711-2a550180-908b-11eb-9956-3a02b4c10aac.png">
 
@@ -309,7 +309,7 @@ Once this is created, access the Dashboard from your Dashboard List in the UI:
 
 <img width="409" alt="image" src="https://user-images.githubusercontent.com/18196749/112824801-448edf80-908b-11eb-9269-150785d807e9.png">
 
-Bonus Question: What is the Anomaly graph displaying?
+## Bonus Question: What is the Anomaly graph displaying?
 
 From the datadog Anomally function definition: 
 
@@ -317,11 +317,11 @@ Anomaly detection is an algorithmic feature that identifies when a metric is beh
 
 Anomaly detection - With the default option (above or below) a metric is considered to be anomalous if it is outside of the gray anomaly band. Optionally, you can specify whether being only above or below the bands is considered anomalous.
 
-Monitoring Data
+# Monitoring Data
 
 Since you’ve already caught your test metric going above 800 once, you don’t want to have to continually watch this dashboard to be alerted when it goes above 800 again. So let’s make life easier by creating a monitor.
 
-Create a new Metric Monitor that watches the average of your custom metric (my_metric) and will alert if it’s above the following values over the past 5 minutes:
+## Create a new Metric Monitor that watches the average of your custom metric (my_metric) and will alert if it’s above the following values over the past 5 minutes:
 
 •	Warning threshold of 500
 •	Alerting threshold of 800
@@ -350,7 +350,7 @@ Please configure the monitor’s message so that it will:
 
 •	When this monitor sends you an email notification, take a screenshot of the email that it sends you
 
-Alert 
+**Alert**
 
 The alert wasn’t triggering, so I changed the random values to be higher so the average would be over 800.
 
@@ -364,18 +364,18 @@ Looking at the message received it is not displaying the host_ip. From what I un
 
 Testing with the {{host.name}} instead, but it didn’t work either. 
 
-Warn
+**Warn**
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112825008-8a4ba800-908b-11eb-81cb-330d7dc28365.png">
 
-Recovered
+**Recovered**
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112825047-946da680-908b-11eb-9f65-c0d2371a97c1.png">
 
-No data received 
+**No data received**
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112825083-9df70e80-908b-11eb-9892-4ed360c2022d.png">
 
-Bonus Question: Since this monitor is going to alert pretty often, you don’t want to be alerted when you are out of the office. Set up two scheduled downtimes for this monitor:
+##Bonus Question: Since this monitor is going to alert pretty often, you don’t want to be alerted when you are out of the office. Set up two scheduled downtimes for this monitor:
 
-One that silences it from 7pm to 9am daily on M-F
+**One that silences it from 7pm to 9am daily on M-F**
 
 In order to do this it’s necessary to schedule downtime.
 
@@ -385,22 +385,22 @@ The process is quite straight forward:
 -Click on “Schedule downtime”
 <img width="312" alt="image" src="https://user-images.githubusercontent.com/18196749/112825101-a3ecef80-908b-11eb-9d51-e65266701c2b.png">
 
-One that silences it all day on Sat-Sun
+**One that silences it all day on Sat-Sun**
 <img width="312" alt="image" src="https://user-images.githubusercontent.com/18196749/112825120-abac9400-908b-11eb-9d16-f6ffeb3e7702.png">
 
 Make sure that your email is notified when you schedule the downtime and take a screenshot of that notification
 <img width="274" alt="image" src="https://user-images.githubusercontent.com/18196749/112825142-b109de80-908b-11eb-9966-f8d47c967e23.png">
 
 
-Collecting APM Data
+# Collecting APM Data
 
-Deploy the Flask app with Python 
+## Deploy the Flask app with Python 
 
 from flask import Flask
 import logging
 import sys
 
-# Have flask use stdout as the logger
+Have flask use stdout as the logger
 main_logger = logging.getLogger()
 main_logger.setLevel(logging.DEBUG)
 c = logging.StreamHandler(sys.stdout)
@@ -426,13 +426,13 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5050')
 
 
-Initial Setup
+## Initial Setup
 
 In order to deploy the given Flask App in my EC2 instance there are some necessary previous steps to take to have the environment ready. 
 
 These are: 
 
-Install virtualenv 
+## Install virtualenv 
 
 $ sudo apt-get install python-virtualenv
 $ mkdir datadogflask
@@ -443,7 +443,7 @@ $ . venv/bin/activate
 $ pip install Flask
 
 
-Create the python file “datadogflaskapp.py”
+## Create the python file “datadogflaskapp.py”
 
 In the virtual environment 
 (venv) ubuntu@ip-172-31-41-67:~/datadogflask$ export FLASK_APP=datadogflaskapp.py
@@ -454,7 +454,7 @@ In the virtual environment
 And the datadogflaskapp is running. 
 Now it’s time to implement APM
 
-APM Setup
+# APM Setup
 
 In the dashboard navigate to “APM” 
 Then in the getting started section select “Host Based”. And follow the instructions
@@ -485,14 +485,14 @@ And the datadogflasapp listed and reporting data.
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112825397-fa5a2e00-908b-11eb-8319-002d0c2771f4.png">
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112825411-fdedb500-908b-11eb-8161-ae991b6ebba1.png">
 
-Bonus Question: What is the difference between a Service and a Resource?
+# Bonus Question: What is the difference between a Service and a Resource?
 
 
 •	Services groups together endpoints, queries, or jobs for the purpose of scaling instances. All services are listed under Service List and can be visually seen as in a Micro-service format under Service Map.
 
 •	Resources represent a particular domain of a Customer Application.They could typically be an instrumented web endpoint, database query, or background job. Each resource has its own Resource page with trace metrics scoped to the specific endpoint.
 
-Final Question
+# Final Question
 Is there anything creative you would use Datadog for?
 
 I live in Barcelona where there currently is a big initiative for a greener city. So one use case that comes to mind is tracking the number cars in the low emissions area. 
@@ -501,9 +501,9 @@ There are cameras checking the license plates of all vehicles entering that area
 Another idea would be during the winter season check the mountain and slopes snow site to know if it’s good to god skiing. Also compare it with previous year’s data and use it to determine global warming rates. 
 
 
-Extra Information
+# Extra Information
 
-Mysql DB
+## Mysql DB
 
 I follow this guide: https://www.digitalocean.com/community/tutorials/a-basic-mysql-tutorial
 
@@ -511,7 +511,7 @@ Mysql datadog user:
 CREATE USER 'datadog'@'localhost' IDENTIFIED BY 'datadog1!'
 
 
-Mongo DB
+## Mongo DB
 
 Simultenously I tried to implement also the mongodb integration. So I set up a mongo DB deployment following this guide: 
 
@@ -553,7 +553,7 @@ This function submits the sample of a histogram metric that occurred during the 
 
 Then I settled for the gauge option. 
 
-Visualizing Data
+# Visualizing Data
 I encountered difficulties using postman to interact with the API. Specifically around authentication. 
 I changed the environment variables with the same API key I used for the integrations, and it wasn’t working. Also checked that the URL was the correct one (datadoghq.eu).
 
