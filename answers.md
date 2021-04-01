@@ -306,7 +306,7 @@ Then verified that the timeboard was created by checking in the UI
 
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112824766-380a8700-908b-11eb-94cf-375bff6885f7.png">
 
-[Dashboard public url] (https://p.datadoghq.eu/sb/478y64jbxcdcxv9i-f0c844c10bcbe0b3922a5e33da046a3b)
+[Dashboard public url](https://p.datadoghq.eu/sb/478y64jbxcdcxv9i-f0c844c10bcbe0b3922a5e33da046a3b)
 
 
 Once this is created, access the Dashboard from your Dashboard List in the UI:
