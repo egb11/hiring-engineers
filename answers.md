@@ -145,6 +145,7 @@ POST https://api.datadoghq.eu/api/v1/dashboard
 
 And as guide there is the following Example JSON:
 
+```
 {
   "description": "string",
   "is_read_only": false,
@@ -182,10 +183,13 @@ And as guide there is the following Example JSON:
     }
   ]
 }
+```
 
 This is an example of how the body of the request should look like.  Not being familiar with the tool I was not sure of the possibilities or what to put in the JSON in order to reflect what is being request. So I went to the datadog UI and used to look at creating the dashboard to export the JSON. Which I then added to the body of the request, and successfully created via API.
 
 ## •	Your custom metric scoped over your host.
+
+```
 {
     "viz": "timeseries",
     "requests": [
@@ -209,11 +213,13 @@ This is an example of how the body of the request should look like.  Not being f
     },
     "markers": []
 }
+```
 
 ## •	Any metric from the Integration on your Database with the anomaly function applied
 
 Metric: mysql.performance.cpu_time 
 
+```
 {
     "viz": "timeseries",
     "requests": [
@@ -237,9 +243,11 @@ Metric: mysql.performance.cpu_time
     },
     "markers": []
 }
+```
 
 ## •	Your custom metric with the rollup function applied to sum up all the points for the past hour into one bucket
 
+```
 {
     "viz": "query_value",
     "requests": [
@@ -265,11 +273,13 @@ Metric: mysql.performance.cpu_time
     "autoscale": true,
     "precision": 2
 }
- 
+```
+
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112824654-1c06e580-908b-11eb-8334-2df69a0ad3e0.png">
 
 ### The entire JSON
 
+```
 {
   "title": "Visualizing Data",
   "description": "## Visualizing Data\n\nIncludes: Custom metric over host, Metric on the DB, Custom metric with rollup function \n",
@@ -282,7 +292,7 @@ Metric: mysql.performance.cpu_time
   "notify_list": [],
   "id": "66f-vy9-aqx"
 }
-
+```
 
 ## Create new timeboard API Call
 
@@ -342,11 +352,13 @@ Please configure the monitor’s message so that it will:
 
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112824866-5bcdcd00-908b-11eb-9a7e-b236aa49ff7c.png">
 
+```
 {{#is_alert}}Alert! my_metric is over 800: value {{value}} with host_ip: {{host.ip}}{{/is_alert}} 
 {{#is_warning}}Warning! my_metric is over 500: value {{value}}{{/is_warning}} 
 {{#is_no_data}}No data received{{/is_no_data}} 
 {{#is_recovery}}my_metrics is OK{{/is_recovery}} 
 @efraingamboab@gmail.com
+```
 
 •	When this monitor sends you an email notification, take a screenshot of the email that it sends you
 
@@ -386,12 +398,15 @@ The process is quite straight forward:
 -Navigate to “Monitor” -> “Manage Downtime”
 -Select the “manage downtime” tab 
 -Click on “Schedule downtime”
+
 <img width="312" alt="image" src="https://user-images.githubusercontent.com/18196749/112825101-a3ecef80-908b-11eb-9d51-e65266701c2b.png">
 
 **One that silences it all day on Sat-Sun**
+
 <img width="312" alt="image" src="https://user-images.githubusercontent.com/18196749/112825120-abac9400-908b-11eb-9d16-f6ffeb3e7702.png">
 
 Make sure that your email is notified when you schedule the downtime and take a screenshot of that notification
+
 <img width="274" alt="image" src="https://user-images.githubusercontent.com/18196749/112825142-b109de80-908b-11eb-9966-f8d47c967e23.png">
 
 
@@ -399,6 +414,7 @@ Make sure that your email is notified when you schedule the downtime and take a 
 
 ## Deploy the Flask app with Python 
 
+```
 from flask import Flask
 import logging
 import sys
@@ -427,7 +443,7 @@ def trace_endpoint():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5050')
-
+```
 
 ## Initial Setup
 
@@ -437,6 +453,7 @@ These are:
 
 ## Install virtualenv 
 
+```
 $ sudo apt-get install python-virtualenv
 $ mkdir datadogflask
 $ cd datadogflask
@@ -444,7 +461,7 @@ $ sudo apt-get install python3-venv
 $ python3 -m venv venv
 $ . venv/bin/activate
 $ pip install Flask
-
+```
 
 ## Create the python file “datadogflaskapp.py”
 
@@ -527,6 +544,7 @@ https://www.digitalocean.com/community/tutorials/how-to-import-and-export-a-mong
 
 And then followed the integration steps
 
+```
 db.createUser({
   "user": "datadog",
   "pwd": "datadog1!",
@@ -536,6 +554,7 @@ db.createUser({
     { role: "read", db: "local" }
   ]
 })
+```
 
 <img width="270" alt="image" src="https://user-images.githubusercontent.com/18196749/112825463-0d6cfe00-908c-11eb-8779-e9400316b2f7.png">
 
