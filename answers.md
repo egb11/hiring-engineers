@@ -365,12 +365,15 @@ Looking at the message received it is not displaying the host_ip. From what I un
 Testing with the {{host.name}} instead, but it didn’t work either. 
 
 **Warn**
+
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112825008-8a4ba800-908b-11eb-81cb-330d7dc28365.png">
 
 **Recovered**
+
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112825047-946da680-908b-11eb-9f65-c0d2371a97c1.png">
 
 **No data received**
+
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/18196749/112825083-9df70e80-908b-11eb-9892-4ed360c2022d.png">
 
 ##Bonus Question: Since this monitor is going to alert pretty often, you don’t want to be alerted when you are out of the office. Set up two scheduled downtimes for this monitor:
